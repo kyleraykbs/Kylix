@@ -1,5 +1,3 @@
-![Kylix](https://github.com/kyleraykbs/Kylix/assets/44762123/30bb28fc-a4a5-48a6-bef5-f5a7de862f69)
-
 # Project Description
 
 Kylix is inspired by https://github.com/danth/stylix and is made as an active replacement. I had a few primary gripes with Stylix that inspired me to make Kylix.
