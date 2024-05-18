@@ -5,7 +5,7 @@
 
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; }
-      (toplevel@ {config, flake-parts-lib, lib, ...}: #
+      (toplevel@ {config, flake-parts-lib, lib, ...}:
       let
         inherit (flake-parts-lib) importApply;
 
