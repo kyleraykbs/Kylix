@@ -11,9 +11,10 @@
 
         flakeModules = {
           functions = importApply ./flake-parts/libraries/functions.nix toplevel;
+          system = importApply ./flake-parts/themes/system toplevel;
           types = importApply ./flake-parts/libraries/types.nix toplevel;
-          applications = importApply ./flake-parts/colors/applications toplevel;
-          toolkits = importApply ./flake-parts/colors/toolkits toplevel;
+          applications = importApply ./flake-parts/themes/applications toplevel;
+          toolkits = importApply ./flake-parts/themes/toolkits toplevel;
         };
       in {
         options.flake.homeManagerModules = lib.mkOption {
@@ -30,6 +31,7 @@
           functions
           types
           applications
+          system
           toolkits
         ];
 
@@ -37,7 +39,7 @@
           flake = {
             inherit flakeModules;
             homeManagerModules = {
-              colors = importApply ./flake-parts/colors toplevel;
+              themes = importApply ./flake-parts/themes toplevel;
               default.imports = config.flake.lib.combineModules config.flake.homeManagerModules;
             };
           };

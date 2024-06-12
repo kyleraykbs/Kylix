@@ -11,6 +11,7 @@ let
   inherit (lib)
     mkOption
     mkEnableOption
+    mkDefault
     mkIf
     types
     ;
@@ -35,15 +36,19 @@ in
   };
 
   config = mkIf cfg.autoEnable {
+    kyler.system = {
+      cursor.enable = mkDefault true;
+    };
+
     kyler.applications = {
-      kitty.enable = true;
-      pywal.enable = true;
-      vscode.enable = true;
+      kitty.enable = mkDefault true;
+      pywal.enable = mkDefault true;
+      vscode.enable = mkDefault true;
     };
 
     kyler.toolkits = {
-      gtk.enable = true;
-      qt.enable = true;
+      gtk.enable = mkDefault true;
+      qt.enable = mkDefault true;
     };
   };
 }
