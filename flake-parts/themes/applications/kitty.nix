@@ -34,6 +34,28 @@ in
       default = config.kyler.opacity;
     };
 
+    font = {
+      enable = mkOption {
+        type = types.bool;
+        default = config.kyler.system.font.enable;
+      };
+
+      package = mkOption {
+        type = types.package;
+        default = config.kyler.system.font.primaryPackage;
+      };
+
+      size = mkOption {
+        type = types.int;
+        default = config.kyler.system.font.size;
+      };
+
+      name = mkOption {
+        type = types.str;
+        default = config.kyler.system.font.primaryName;
+      };
+    };
+
     colorMap = {
       background = mkOption {
         type = basecolors;
@@ -126,6 +148,11 @@ in
 
   config = mkIf cfg.enable {
     programs.kitty = {
+      font = mkIf cfg.font.enable {
+        size = cfg.font.size;
+        package = cfg.font.package;
+        name = cfg.font.name;
+      };
       settings = {
         foreground = "${mapColorHex cfg.colorsOverride cfg.colorMap.foreground}";
         background = "${mapColorHex cfg.colorsOverride cfg.colorMap.background}";

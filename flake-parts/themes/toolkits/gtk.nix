@@ -198,6 +198,28 @@ in
         default = "base01";
       };
     };
+
+    font = {
+      enable = mkOption {
+        type = types.bool;
+        default = config.kyler.system.font.enable;
+      };
+
+      package = mkOption {
+        type = types.package;
+        default = config.kyler.system.font.primaryPackage;
+      };
+
+      size = mkOption {
+        type = types.int;
+        default = config.kyler.system.font.size;
+      };
+
+      name = mkOption {
+        type = types.str;
+        default = config.kyler.system.font.primaryName;
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -206,6 +228,11 @@ in
       theme = {
         package = pkgs.adw-gtk3;
         name = "adw-gtk3";
+      };
+      font = mkIf cfg.font.enable {
+        size = cfg.font.size;
+        package = cfg.font.package;
+        name = cfg.font.name;
       };
     };
 

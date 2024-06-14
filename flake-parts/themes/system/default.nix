@@ -13,6 +13,7 @@ let
 in
 {
   config.flake.homeManagerModules = {
+    font = importApply ./font.nix toplevel;
     cursor = importApply ./cursor.nix toplevel;
     default.imports = combineModules config.flake.homeManagerModules;
   };

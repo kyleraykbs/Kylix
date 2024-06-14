@@ -38,6 +38,7 @@ in
   config = mkIf cfg.autoEnable {
     kyler.system = {
       cursor.enable = mkDefault true;
+      font.enable = mkDefault true;
     };
 
     kyler.applications = {
