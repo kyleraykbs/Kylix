@@ -1,9 +1,5 @@
-toplevel: { config, lib, ... }:
+toplevel: { config, lib, pkgs, ... }:
 let
-  inherit (toplevel.config.flake.lib)
-    verifyHexColor
-    ;
-
   inherit (toplevel.config.flake.lib.types)
     colors
     ;
@@ -22,6 +18,18 @@ in
   options.kyler = {
     applications = {};
 
+    icons = {
+      package = mkOption {
+        type = types.package;
+        default = pkgs.qogir-icon-theme;
+      };
+
+      themeName = mkOption {
+        type = types.str;
+        default = "Qogir-manjaro";
+      };
+    };
+
     colors = mkOption {
       type = types.nullOr colors;
       default = null;
@@ -35,21 +43,34 @@ in
     autoEnable = mkEnableOption "Automatically enable all home theming and NixOS theming.";
   };
 
-  config = mkIf cfg.autoEnable {
-    kyler.system = {
+  config = {
+    kyler.toolkits = {
+      gtk = {
+        icons = {
+          themeName = lib.mkDefault cfg.icons.themeName;
+          package = lib.mkDefault cfg.icons.package;
+        };
+        enable = mkIf cfg.autoEnable (mkDefault true);
+      };
+
+      qt = {
+        icons = {
+          themeName = lib.mkDefault cfg.icons.themeName;
+          package = lib.mkDefault cfg.icons.package;
+        };
+        enable = mkIf cfg.autoEnable (mkDefault true);
+      };
+    };
+
+    kyler.system = mkIf cfg.autoEnable {
       cursor.enable = mkDefault true;
       font.enable = mkDefault true;
     };
 
-    kyler.applications = {
+    kyler.applications = mkIf cfg.autoEnable {
       kitty.enable = mkDefault true;
       pywal.enable = mkDefault true;
       vscode.enable = mkDefault true;
-    };
-
-    kyler.toolkits = {
-      gtk.enable = mkDefault true;
-      qt.enable = mkDefault true;
     };
   };
 }

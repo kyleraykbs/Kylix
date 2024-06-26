@@ -25,6 +25,23 @@ in
   options.kyler.toolkits.gtk = {
     enable = mkEnableOption "GTK theming.";
 
+    icons = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+      };
+
+      themeName = mkOption {
+        type = types.str;
+        default = "Qogir";
+      };
+
+      package = mkOption {
+        type = types.package;
+        default = pkgs.qogir-icon-theme;
+      };
+    };
+
     colorsOverride = mkOption {
       type = buildColorsOverrideType config.kyler.colors;
       default = {};
@@ -150,7 +167,7 @@ in
       };
       popover_fg_color = mkOption {
         type = basecolors;
-        default = "base01";
+        default = "base05";
       };
       scrollbar_outline_color = mkOption {
         type = basecolors;
@@ -233,6 +250,10 @@ in
         size = cfg.font.size;
         package = cfg.font.package;
         name = cfg.font.name;
+      };
+      iconTheme = {
+        name = cfg.icons.themeName;
+        package = cfg.icons.package;
       };
     };
 

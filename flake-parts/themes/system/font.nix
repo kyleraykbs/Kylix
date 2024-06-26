@@ -10,7 +10,7 @@ let
 in
 {
   options.kyler.system.font = {
-    enable = mkEnableOption "cursor";
+    enable = mkEnableOption "font";
 
     packages = mkOption {
       type = types.listOf types.package;

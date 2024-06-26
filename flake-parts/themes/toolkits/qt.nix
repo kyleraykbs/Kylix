@@ -40,6 +40,18 @@ in {
       default = "Fusion";
     };
 
+    icons = {
+      package = mkOption {
+        type = types.package;
+        default = pkgs.qogir-icon-theme;
+      };
+
+      themeName = mkOption {
+        type = types.str;
+        default = "Qogir";
+      };
+    };
+
     colorMap = {
       # TODO: make colorMap an actual colorMap because I justed used the list of colors to save time
       background = mkOption {
@@ -124,6 +136,7 @@ in {
       [Appearance]
       color_scheme_path=~/.config/qt6ct/colors/kyler.conf
       custom_palette=true
+      icon_theme=${cfg.icons.themeName}
       standard_dialogs=default
       style=${cfg.style}
 
@@ -162,7 +175,7 @@ in {
     home.packages = with pkgs; [
       qt6ct
       qt5ct
-    ];
+    ] ++ [cfg.icons.package];
 
     home.sessionVariables = {
       QT_QPA_PLATFORMTHEME="qt5ct:qt6ct";
